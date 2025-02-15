@@ -6,10 +6,17 @@ namespace OnurSimsek\Craftgate\Contracts;
 
 use Psr\Http\Message\RequestInterface as PsrRequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
 
 interface RequestInterface
 {
     public function options(): Options;
+
     public function psrRequest(): PsrRequestInterface;
+
+    public function withUri(UriInterface $uri): self;
+
+    public function withMethod(string $method): self;
+
     public function send(): ResponseInterface;
 }
