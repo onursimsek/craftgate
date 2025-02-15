@@ -13,12 +13,10 @@ use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface as PsrRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
-use Psr\Http\Message\UriInterface;
 
 trait WithRequest
 {
     protected string $baseUrl = 'http://localhost:8000';
-    protected string $endpoint = '';
 
     protected MockHandler $fakeServer;
 
@@ -31,7 +29,6 @@ trait WithRequest
 
     public function baseRequest(string $path = '', array $query = [], array $params = [])
     {
-        //$this->endpoint = urldecode($endpoint);
         return $this->createConfiguredMock(RequestInterface::class, [
             'options' => $this->options(),
             'psrRequest' => $this->psrRequest($path, $query, $params),
@@ -51,18 +48,13 @@ trait WithRequest
     private function psrRequest(string $path = '', array $query = [], array $params = [])
     {
         return $this->createConfiguredMock(PsrRequestInterface::class, [
-            'getUri' => (new Uri($this->baseUrl))->withPath($path)->withQuery(http_build_query($query)),
+            'getUri' => (new Uri($this->baseUrl))
+                ->withPath($path)
+                ->withQuery(http_build_query($query)),
             'getBody' => $this->createConfiguredMock(StreamInterface::class, [
                 'getSize' => $params ? 1 : 0,
                 'getContents' => json_encode($params),
             ]),
-        ]);
-    }
-
-    private function getUri()
-    {
-        return $this->createConfiguredMock(UriInterface::class, [
-            '__toString' => $this->baseUrl . $this->endpoint,
         ]);
     }
 
