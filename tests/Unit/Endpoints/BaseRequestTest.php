@@ -6,7 +6,6 @@ namespace OnurSimsek\Craftgate\Tests\Unit\Endpoints;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Uri;
 use OnurSimsek\Craftgate\Contracts\Options;
 use OnurSimsek\Craftgate\Endpoints\BaseRequest;
@@ -66,7 +65,7 @@ class BaseRequestTest extends TestCase
     public function it_should_be_send_a_request()
     {
         $mock = $this->fakeServer();
-        $mock->append(new Response(200, ['x-foo' => 'bar'], 'Hello, World'));
+        $this->addResponse(200, 'Hello, World');
 
         $request = new BaseRequest($this->options(), new Client(['handler' => HandlerStack::create($mock)]));
         $response = $request->send();
@@ -75,7 +74,6 @@ class BaseRequestTest extends TestCase
         $this->assertTrue($request->psrRequest()->hasHeader(Header::Signature->value));
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(['bar'], $response->getHeader('x-foo'));
         $this->assertEquals('Hello, World', $response->getBody()->getContents());
     }
 }

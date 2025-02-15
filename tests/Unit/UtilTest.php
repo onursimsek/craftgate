@@ -29,7 +29,7 @@ class UtilTest extends TestCase
         );
 
         // Payment endpoint
-        $request = $this->baseRequest('/payment/v1/cards', [
+        $request = $this->baseRequest(path: '/payment/v1/cards', params: [
             'cardUserKey' => 'de050909-39a9-473c-a81a-f186dd55cfef',
         ]);
         $this->assertEquals(
@@ -38,7 +38,7 @@ class UtilTest extends TestCase
         );
 
         // Onboarding endpoint
-        $request = $this->baseRequest('/onboarding/v1/members?name=Zeytinya%C4%9F%C4%B1%20%C3%9Cretim');
+        $request = $this->baseRequest(path: '/onboarding/v1/members', query: ['name' => 'Zeytinyağı Üretim']);
         $this->assertEquals(
             expected: 'vxYA+5LH3F4m8tHQA2LpVBwzVgCqGRHue4XAgcVjjYQ=',
             actual: Util::signature($request, '1234')

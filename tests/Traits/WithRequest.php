@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace OnurSimsek\Craftgate\Tests\Traits;
 
 use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Psr7\Uri;
 use OnurSimsek\Craftgate\Contracts\Options;
 use OnurSimsek\Craftgate\Contracts\RequestInterface;
 use Psr\Http\Client\ClientInterface;
@@ -18,6 +20,8 @@ trait WithRequest
     protected string $baseUrl = 'http://localhost:8000';
     protected string $endpoint = '';
 
+    protected MockHandler $fakeServer;
+
     private function client()
     {
         return $this->createConfiguredMock(ClientInterface::class, [
@@ -25,12 +29,12 @@ trait WithRequest
         ]);
     }
 
-    public function baseRequest(string $endpoint = '', array $params = [])
+    public function baseRequest(string $path = '', array $query = [], array $params = [])
     {
-        $this->endpoint = urldecode($endpoint);
+        //$this->endpoint = urldecode($endpoint);
         return $this->createConfiguredMock(RequestInterface::class, [
             'options' => $this->options(),
-            'psrRequest' => $this->psrRequest($params),
+            'psrRequest' => $this->psrRequest($path, $query, $params),
         ]);
     }
 
@@ -40,14 +44,14 @@ trait WithRequest
             'getApiKey' => 'api-key',
             'getSecretKey' => 'secret-key',
             'getBaseUrl' => $this->baseUrl,
-            'getUri' => $this->getUri(),
+            'getUri' => new Uri($this->baseUrl),
         ]);
     }
 
-    private function psrRequest(array $params = [])
+    private function psrRequest(string $path = '', array $query = [], array $params = [])
     {
         return $this->createConfiguredMock(PsrRequestInterface::class, [
-            'getUri' => $this->getUri(),
+            'getUri' => (new Uri($this->baseUrl))->withPath($path)->withQuery(http_build_query($query)),
             'getBody' => $this->createConfiguredMock(StreamInterface::class, [
                 'getSize' => $params ? 1 : 0,
                 'getContents' => json_encode($params),
@@ -64,6 +68,11 @@ trait WithRequest
 
     public function fakeServer(): MockHandler
     {
-        return new MockHandler();
+        return $this->fakeServer = new MockHandler();
+    }
+
+    public function addResponse(int $status, string $body): void
+    {
+        $this->fakeServer->append(new Response($status, [], $body));
     }
 }

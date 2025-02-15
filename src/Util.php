@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OnurSimsek\Craftgate;
 
+use GuzzleHttp\Psr7\Uri;
 use OnurSimsek\Craftgate\Contracts\RequestInterface;
 
 class Util
@@ -32,8 +33,9 @@ class Util
     {
         $options = $request->options();
         $psrRequest = $request->psrRequest();
+        $uri = $psrRequest->getUri();
 
-        $hash = $psrRequest->getUri()
+        $hash = Uri::composeComponents($uri->getScheme(), $uri->getAuthority(), $uri->getPath(), urldecode($uri->getQuery()), $uri->getFragment())
             . $options->getApiKey()
             . $options->getSecretKey()
             . $salt
