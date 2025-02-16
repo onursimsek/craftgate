@@ -8,16 +8,26 @@ use Psr\Http\Message\ResponseInterface;
 
 class Payment extends RequestDecorator
 {
-    protected string $baseUrl = 'payment';
+    protected string $prefix = 'payment';
 
     public function createPayment(array $params): ResponseInterface
     {
         return $this->withMethod('post')
+            ->withPath('card-payments')
             ->withBody($params)
-            ->withUri(
-                $this->psrRequest()->getUri()
-                    ->withPath($this->generatePath('card-payments'))
-            )
+            ->send();
+    }
+
+    public function retrievePayment(int $id): ResponseInterface
+    {
+        return $this->withPath('card-payments', $id)->send();
+    }
+
+    public function postAuthPayment(int $id, array $params): ResponseInterface
+    {
+        return $this->withMethod('post')
+            ->withPath('card-payments', $id, 'post-auth')
+            ->withBody($params)
             ->send();
     }
 }
