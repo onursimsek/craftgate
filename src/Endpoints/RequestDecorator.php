@@ -13,8 +13,11 @@ use Psr\Http\Message\UriInterface;
 abstract class RequestDecorator implements RequestInterface
 {
     protected string $version = 'v1';
-    protected string $baseUrl;
+    protected string $prefix;
 
+    /**
+     * @param RequestInterface&BaseRequest $request
+     */
     public function __construct(protected readonly RequestInterface $request)
     {
     }
@@ -31,26 +34,36 @@ abstract class RequestDecorator implements RequestInterface
 
     public function withUri(UriInterface $uri): RequestInterface
     {
-        return $this->request->withUri($uri);
+        $this->request->withUri($uri);
+        return $this;
+    }
+
+    public function withPath(...$sections): RequestInterface
+    {
+        $this->request->withPath($this->prefix, $this->version, ...$sections);
+        return $this;
+    }
+
+    public function withQuery(array $params): RequestInterface
+    {
+        $this->request->withQuery($params);
+        return $this;
     }
 
     public function withMethod(string $method): RequestInterface
     {
-        return $this->request->withMethod($method);
+        $this->request->withMethod($method);
+        return $this;
     }
 
     public function withBody(array $body): RequestInterface
     {
-        return $this->request->withBody($body);
+        $this->request->withBody($body);
+        return $this;
     }
 
     public function send(): ResponseInterface
     {
         return $this->request->send();
-    }
-
-    protected function generatePath(string $endpoint): string
-    {
-        return sprintf('/%s/%s/%s', $this->baseUrl, $this->version, $endpoint);
     }
 }

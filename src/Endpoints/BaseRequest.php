@@ -38,19 +38,37 @@ class BaseRequest implements RequestInterface
         return $this->request;
     }
 
-    public function withUri(UriInterface $uri): static
+    public function withUri(UriInterface $uri): RequestInterface
     {
         $this->request = $this->request->withUri($uri);
         return $this;
     }
 
-    public function withMethod(string $method): static
+    public function withPath(...$sections): RequestInterface
+    {
+        $this->request = $this->request->withUri(
+            $this->request->getUri()->withPath(implode('/', $sections))
+        );
+
+        return $this;
+    }
+
+    public function withQuery(array $params): RequestInterface
+    {
+        $this->request = $this->request->withUri(
+            $this->request->getUri()->withQuery(http_build_query($params))
+        );
+
+        return $this;
+    }
+
+    public function withMethod(string $method): RequestInterface
     {
         $this->request = $this->request->withMethod($method);
         return $this;
     }
 
-    public function withHeader(string $header, string $value): static
+    public function withHeader(string $header, string $value): RequestInterface
     {
         $this->request = $this->request->withHeader($header, $value);
         return $this;
