@@ -39,6 +39,11 @@ abstract class RequestDecorator implements RequestInterface
         return $this->request->withMethod($method);
     }
 
+    public function withBody(array $body): RequestInterface
+    {
+        return $this->request->withBody($body);
+    }
+
     public function send(): ResponseInterface
     {
         return $this->request->send();

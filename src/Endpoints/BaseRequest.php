@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OnurSimsek\Craftgate\Endpoints;
 
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Utils;
 use OnurSimsek\Craftgate\Contracts\Options;
 use OnurSimsek\Craftgate\Contracts\RequestInterface;
 use OnurSimsek\Craftgate\Util;
@@ -52,6 +53,14 @@ class BaseRequest implements RequestInterface
     public function withHeader(string $header, string $value): static
     {
         $this->request = $this->request->withHeader($header, $value);
+        return $this;
+    }
+
+    public function withBody(array $body): RequestInterface
+    {
+        $this->request = $this->request->withBody(
+            Utils::streamFor(json_encode($body))
+        );
         return $this;
     }
 
