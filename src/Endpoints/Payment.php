@@ -30,4 +30,12 @@ class Payment extends RequestDecorator
             ->withBody($params)
             ->send();
     }
+
+    public function init3DSPayment(array $param): ResponseInterface
+    {
+        return $this->withMethod('post')
+            ->withPath('card-payments', '3ds-init')
+            ->withBody($param)
+            ->send();
+    }
 }
