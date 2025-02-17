@@ -150,4 +150,25 @@ class PaymentTest extends TestCase
 
         $this->assertEquals(json_encode($params), $request->psrRequest()->getBody());
     }
+
+    #[Test]
+    public function it_should_be_send_a_complete_three_d_secure_payment_request()
+    {
+        $request = $this->instance();
+
+        $params = [
+            'paymentId' => 1010
+        ];
+
+        $response = $request->complete3DSPayment($params);
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertEquals('POST', $request->psrRequest()->getMethod());
+        $this->assertEquals(
+            expected: 'payment/v1/card-payments/3ds-complete',
+            actual: $request->psrRequest()->getUri()->getPath()
+        );
+
+        $this->assertEquals(json_encode($params), $request->psrRequest()->getBody());
+    }
 }

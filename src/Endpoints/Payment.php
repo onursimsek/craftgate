@@ -38,4 +38,12 @@ class Payment extends RequestDecorator
             ->withBody($param)
             ->send();
     }
+
+    public function complete3DSPayment(array $param): ResponseInterface
+    {
+        return $this->withMethod('post')
+            ->withPath('card-payments', '3ds-complete')
+            ->withBody($param)
+            ->send();
+    }
 }
