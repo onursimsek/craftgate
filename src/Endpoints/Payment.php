@@ -61,4 +61,19 @@ class Payment extends RequestDecorator
             ->withPath('checkout-payments', $token)
             ->send();
     }
+
+    public function expireCheckoutPayment(string $token): ResponseInterface
+    {
+        return $this->withMethod('delete')
+            ->withPath('checkout-payments', $token)
+            ->send();
+    }
+
+    public function createDepositPayment(array $params): ResponseInterface
+    {
+        return $this->withMethod('post')
+            ->withPath('deposits')
+            ->withBody($params)
+            ->send();
+    }
 }

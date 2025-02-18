@@ -233,4 +233,48 @@ class PaymentTest extends TestCase
 
         $this->assertEquals('', $request->psrRequest()->getBody());
     }
+
+    #[Test]
+    public function it_should_be_send_a_expire_checkout_payment_request()
+    {
+        $request = $this->instance();
+
+        $token = Util::guid();
+
+        $response = $request->expireCheckoutPayment($token);
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertEquals('DELETE', $request->psrRequest()->getMethod());
+        $this->assertEquals(
+            expected: 'payment/v1/checkout-payments/' . $token,
+            actual: $request->psrRequest()->getUri()->getPath()
+        );
+
+        $this->assertEquals('', $request->psrRequest()->getBody());
+    }
+
+    #[Test]
+    public function it_should_be_send_a_create_deposit_payment_request()
+    {
+        $request = $this->instance();
+
+        $params = [
+            'buyerMemberId' => 1,
+            'price' => 100,
+            'currency' => Currency::TL->value,
+            'conversationId' => Util::guid(),
+            'card' => $this->buyerCard(),
+        ];
+
+        $response = $request->createDepositPayment($params);
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertEquals('POST', $request->psrRequest()->getMethod());
+        $this->assertEquals(
+            expected: 'payment/v1/deposits',
+            actual: $request->psrRequest()->getUri()->getPath()
+        );
+
+        $this->assertEquals(json_encode($params), $request->psrRequest()->getBody());
+    }
 }
