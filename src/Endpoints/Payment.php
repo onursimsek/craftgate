@@ -54,4 +54,11 @@ class Payment extends RequestDecorator
             ->withBody($param)
             ->send();
     }
+
+    public function retrieveCheckoutPayment(string $token): ResponseInterface
+    {
+        return $this->withMethod('get')
+            ->withPath('checkout-payments', $token)
+            ->send();
+    }
 }

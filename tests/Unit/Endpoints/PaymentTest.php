@@ -214,4 +214,23 @@ class PaymentTest extends TestCase
 
         $this->assertEquals(json_encode($params), $request->psrRequest()->getBody());
     }
+
+    #[Test]
+    public function it_should_be_send_a_retrieve_checkout_payment_request()
+    {
+        $request = $this->instance();
+
+        $token = Util::guid();
+
+        $response = $request->retrieveCheckoutPayment($token);
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertEquals('GET', $request->psrRequest()->getMethod());
+        $this->assertEquals(
+            expected: 'payment/v1/checkout-payments/' . $token,
+            actual: $request->psrRequest()->getUri()->getPath()
+        );
+
+        $this->assertEquals('', $request->psrRequest()->getBody());
+    }
 }
