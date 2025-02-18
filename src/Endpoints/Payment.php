@@ -46,4 +46,12 @@ class Payment extends RequestDecorator
             ->withBody($param)
             ->send();
     }
+
+    public function initCheckoutPayment(array $param): ResponseInterface
+    {
+        return $this->withMethod('post')
+            ->withPath('checkout-payments', 'init')
+            ->withBody($param)
+            ->send();
+    }
 }

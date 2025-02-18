@@ -134,7 +134,7 @@ class PaymentTest extends TestCase
             'currency' => Currency::TL->value,
             'paymentGroup' => PaymentGroup::LISTING_OR_SUBSCRIPTION->value,
             'conversationId' => Util::guid(),
-            'callbackUrl' => 'https://www.awesome-website.com/payments/callback',
+            'callbackUrl' => 'https://test.io/payments/callback',
             'card' => $this->buyerCard(),
             'items' => $this->basket(),
         ];
@@ -166,6 +166,49 @@ class PaymentTest extends TestCase
         $this->assertEquals('POST', $request->psrRequest()->getMethod());
         $this->assertEquals(
             expected: 'payment/v1/card-payments/3ds-complete',
+            actual: $request->psrRequest()->getUri()->getPath()
+        );
+
+        $this->assertEquals(json_encode($params), $request->psrRequest()->getBody());
+    }
+
+    #[Test]
+    public function it_should_be_send_a_init_checkout_payment_request()
+    {
+        $request = $this->instance();
+
+        $params = [
+            'price' => 100,
+            'paidPrice' => 100,
+            'currency' => Currency::TL->value,
+            'paymentGroup' => PaymentGroup::LISTING_OR_SUBSCRIPTION->value,
+            'conversationId' => Util::guid(),
+            'callbackUrl' => 'https://test.io/payments/callback',
+            'items' => [
+                [
+                    'externalId' => Util::guid(),
+                    'name' => 'Item 1',
+                    'price' => 30
+                ],
+                [
+                    'externalId' => Util::guid(),
+                    'name' => 'Item 2',
+                    'price' => 50
+                ],
+                [
+                    'externalId' => Util::guid(),
+                    'name' => 'Item 3',
+                    'price' => 20
+                ]
+            ]
+        ];
+
+        $response = $request->initCheckoutPayment($params);
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertEquals('POST', $request->psrRequest()->getMethod());
+        $this->assertEquals(
+            expected: 'payment/v1/checkout-payments/init',
             actual: $request->psrRequest()->getUri()->getPath()
         );
 
