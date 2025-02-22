@@ -15,10 +15,14 @@ interface RequestInterface
     public function psrRequest(): PsrRequestInterface;
 
     public function withUri(UriInterface $uri): self;
+
     public function withPath(...$sections): self;
+
     public function withQuery(array $params): self;
 
     public function withMethod(string $method): self;
+
+    public function withHeader(string $header, string $value): self;
 
     public function withBody(array $body): self;
 
