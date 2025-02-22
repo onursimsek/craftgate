@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OnurSimsek\Craftgate\Endpoints;
 
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Utils;
 use OnurSimsek\Craftgate\Contracts\Options;
 use OnurSimsek\Craftgate\Contracts\RequestInterface;
 use OnurSimsek\Craftgate\Util;
@@ -37,21 +38,47 @@ class BaseRequest implements RequestInterface
         return $this->request;
     }
 
-    public function withUri(UriInterface $uri): static
+    public function withUri(UriInterface $uri): RequestInterface
     {
         $this->request = $this->request->withUri($uri);
         return $this;
     }
 
-    public function withMethod(string $method): static
+    public function withPath(...$sections): RequestInterface
+    {
+        $this->request = $this->request->withUri(
+            $this->request->getUri()->withPath(implode('/', $sections))
+        );
+
+        return $this;
+    }
+
+    public function withQuery(array $params): RequestInterface
+    {
+        $this->request = $this->request->withUri(
+            $this->request->getUri()->withQuery(http_build_query($params))
+        );
+
+        return $this;
+    }
+
+    public function withMethod(string $method): RequestInterface
     {
         $this->request = $this->request->withMethod($method);
         return $this;
     }
 
-    public function withHeader(string $header, string $value): static
+    public function withHeader(string $header, string $value): RequestInterface
     {
         $this->request = $this->request->withHeader($header, $value);
+        return $this;
+    }
+
+    public function withBody(array $body): RequestInterface
+    {
+        $this->request = $this->request->withBody(
+            Utils::streamFor(json_encode($body))
+        );
         return $this;
     }
 

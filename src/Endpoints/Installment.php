@@ -8,22 +8,17 @@ use Psr\Http\Message\ResponseInterface;
 
 final class Installment extends RequestDecorator
 {
-    protected string $baseUrl = 'installment';
+    protected string $prefix = 'installment';
 
     public function searchInstallments(array $params = []): ResponseInterface
     {
-        return $this->withUri(
-            $this->psrRequest()->getUri()
-                ->withPath($this->generatePath('installments'))
-                ->withQuery(http_build_query($params))
-        )->send();
+        return $this->withPath('installments')
+            ->withQuery($params)
+            ->send();
     }
 
     public function retrieveBinNumber(string $binNumber): ResponseInterface
     {
-        return $this->withUri(
-            $this->psrRequest()->getUri()
-                ->withPath($this->generatePath(sprintf('bins/%s', $binNumber)))
-        )->send();
+        return $this->withPath('bins', $binNumber)->send();
     }
 }

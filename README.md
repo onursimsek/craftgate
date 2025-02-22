@@ -1,18 +1,15 @@
-# This is my package craftgate
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://banners.beyondco.de/Craftgate.png?theme=dark&packageManager=composer+require&packageName=onursimsek%2Fcraftgate&pattern=topography&style=style_1&description=Craftgate+SDK+for+PHP&md=1&showWatermark=1&fontSize=100px&images=credit-card">
+  <source media="(prefers-color-scheme: light)" srcset="https://banners.beyondco.de/Craftgate.png?theme=light&packageManager=composer+require&packageName=onursimsek%2Fcraftgate&pattern=topography&style=style_1&description=Craftgate+SDK+for+PHP&md=1&showWatermark=1&fontSize=100px&images=credit-card">
+  <img alt="Package Image" src="https://banners.beyondco.de/Craftgate.png?theme=dark&packageManager=composer+require&packageName=onursimsek%2Fcraftgate&pattern=topography&style=style_1&description=Craftgate+SDK+for+PHP&md=1&showWatermark=1&fontSize=100px&images=credit-card">
+</picture>
+
+# Craftgate SDK for PHP
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/onursimsek/craftgate.svg?style=flat-square)](https://packagist.org/packages/onursimsek/craftgate)
-[![Tests](https://img.shields.io/github/actions/workflow/status/onursimsek/craftgate/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/onursimsek/craftgate/actions/workflows/run-tests.yml)
+[![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Tests](https://github.com/onursimsek/craftgate/actions/workflows/run-tests.yml/badge.svg)](https://github.com/onursimsek/craftgate/actions)
 [![Total Downloads](https://img.shields.io/packagist/dt/onursimsek/craftgate.svg?style=flat-square)](https://packagist.org/packages/onursimsek/craftgate)
-
-This is where your description should go. Try and limit it to a paragraph or two. Consider adding a small example.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/craftgate.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/craftgate)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
 
 ## Installation
 
@@ -25,8 +22,7 @@ composer require onursimsek/craftgate
 ## Usage
 
 ```php
-$skeleton = new OnurSimsek\Craftgate();
-echo $skeleton->echoPhrase('Hello, OnurSimsek!');
+$craftgate = new OnurSimsek\Craftgate();
 ```
 
 ## Testing

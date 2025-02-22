@@ -35,7 +35,7 @@ class InstallmentTest extends TestCase
         $response = $installments->searchInstallments();
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
-        $this->assertEquals('/installment/v1/installments', $installments->psrRequest()->getUri()->getPath());
+        $this->assertEquals('installment/v1/installments', $installments->psrRequest()->getUri()->getPath());
 
         $installments = $this->installmentInstance();
 
@@ -45,7 +45,7 @@ class InstallmentTest extends TestCase
         ]);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
-        $this->assertEquals('/installment/v1/installments', $installments->psrRequest()->getUri()->getPath());
+        $this->assertEquals('installment/v1/installments', $installments->psrRequest()->getUri()->getPath());
         $this->assertEquals('binNumber=123456&price=100', $installments->psrRequest()->getUri()->getQuery());
     }
 
@@ -57,6 +57,6 @@ class InstallmentTest extends TestCase
         $response = $installments->retrieveBinNumber('123456');
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
-        $this->assertEquals('/installment/v1/bins/123456', $installments->psrRequest()->getUri()->getPath());
+        $this->assertEquals('installment/v1/bins/123456', $installments->psrRequest()->getUri()->getPath());
     }
 }

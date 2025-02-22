@@ -60,6 +60,18 @@ class RequestDecoratorTest extends TestCase
     }
 
     #[Test]
+    public function it_should_be_set_body()
+    {
+        $decorator = $this->decoratorInstance();
+
+        $params = ['foo' => 'bar'];
+
+        $decorator->withBody($params);
+
+        $this->assertEquals(json_encode($params), $decorator->psrRequest()->getBody());
+    }
+
+    #[Test]
     public function it_should_be_send_a_request()
     {
         $mock = $this->fakeServer();
