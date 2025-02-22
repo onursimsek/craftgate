@@ -22,8 +22,6 @@ interface RequestInterface
 
     public function withMethod(string $method): self;
 
-    public function withHeader(string $header, string $value): self;
-
     public function withBody(array $body): self;
 
     public function send(): ResponseInterface;
