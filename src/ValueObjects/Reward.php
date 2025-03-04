@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace OnurSimsek\Craftgate\ValueObjects;
 
-use OnurSimsek\Craftgate\Contracts\Arrayable;
-
-class Reward implements Arrayable
+class Reward extends ValueObject
 {
     /**
      * @param float $cardRewardMoney Müşterinin kartına tanımlı genel kullanım amaçlı puandan kullanılacak tutar.

@@ -7,12 +7,15 @@ namespace OnurSimsek\Craftgate\Tests\Unit\ValueObjects;
 use BackedEnum;
 use OnurSimsek\Craftgate\Contracts\Arrayable;
 use OnurSimsek\Craftgate\Tests\TestCase;
+use OnurSimsek\Craftgate\ValueObjects\ValueObject;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
 abstract class ValueObjectTestCase extends TestCase
 {
     abstract public static function provider(): array;
+
+    abstract public static function rawArrayProvider(): array;
 
     #[Test]
     #[DataProvider('provider')]
@@ -45,27 +48,44 @@ abstract class ValueObjectTestCase extends TestCase
         }
     }
 
+    /**
+     * @param class-string<ValueObject> $valueObjectClass
+     * @param array $params
+     * @param array $defaults
+     * @return void
+     */
     #[Test]
     #[DataProvider('provider')]
+    #[DataProvider('rawArrayProvider')]
     public function it_should_be_convertable_to_array(string $valueObjectClass, array $params, array $defaults = [])
     {
-        $valueObject = new $valueObjectClass(...$params);
+        $valueObject = $valueObjectClass::fromArray($params);
 
-        $this->assertEquals(
-            expected: array_map(function ($value) {
-                // var_dump($value);
-                return match (true) {
-                    $value instanceof BackedEnum => $value->value,
-                    $value instanceof Arrayable => $value->toArray(),
-                    default => $value,
-                };
-            }, $params + $defaults),
-            actual: $valueObject->toArray()
-        );
+        $expected = $this->generateExpected(array_replace_recursive($params, $defaults));
+
+        $actual = $valueObject->toArray();
+
+        ksort($expected);
+        ksort($actual);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    private function generateExpected(array $params)
+    {
+        return array_map(function ($value) {
+            return match (true) {
+                $value instanceof BackedEnum => $value->value,
+                $value instanceof Arrayable => $value->toArray(),
+                is_array($value) => $this->generateExpected($value),
+                default => $value,
+            };
+        }, $params);
     }
 
     protected static function mock(string $originalClassName): object
     {
+        // getMockBuilder cannot call statically
         $class = (new class ($originalClassName) extends TestCase {
         });
 

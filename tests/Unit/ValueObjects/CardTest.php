@@ -45,4 +45,9 @@ class CardTest extends ValueObjectTestCase
             ],
         ];
     }
+
+    public static function rawArrayProvider(): array
+    {
+        return self::provider();
+    }
 }

@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace OnurSimsek\Craftgate\ValueObjects;
 
-use OnurSimsek\Craftgate\Contracts\Arrayable;
 use OnurSimsek\Craftgate\Enums\LoyaltyType;
 
-class Loyalty implements Arrayable
+class Loyalty extends ValueObject
 {
     /**
      * @param LoyaltyType $type Banka tarafından sağlanan ödüllerin tipini belirtir
@@ -21,7 +20,7 @@ class Loyalty implements Arrayable
     {
         return new self(
             type: $params['type'],
-            reward: $params['reward'] ?? null,
+            reward: self::hydrate($params['reward'] ?? null, Reward::class),
         );
     }
 

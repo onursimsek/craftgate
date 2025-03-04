@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace OnurSimsek\Craftgate\ValueObjects;
 
-use OnurSimsek\Craftgate\Contracts\Arrayable;
-
-class AdditionalParams implements Arrayable
+class AdditionalParams extends ValueObject
 {
     public function __construct(public readonly string $msisdn)
     {

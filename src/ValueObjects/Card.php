@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace OnurSimsek\Craftgate\ValueObjects;
 
-use OnurSimsek\Craftgate\Contracts\Arrayable;
-
-class Card implements Arrayable
+class Card extends ValueObject
 {
     /**
      * @param string $cardHolderName Kart sahibinin adı/soyadı

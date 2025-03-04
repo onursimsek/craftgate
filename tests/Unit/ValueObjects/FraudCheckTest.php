@@ -23,4 +23,9 @@ class FraudCheckTest extends ValueObjectTestCase
             ],
         ];
     }
+
+    public static function rawArrayProvider(): array
+    {
+        return self::provider();
+    }
 }

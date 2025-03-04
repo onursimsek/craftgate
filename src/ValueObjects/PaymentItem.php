@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace OnurSimsek\Craftgate\ValueObjects;
 
-use OnurSimsek\Craftgate\Contracts\Arrayable;
-
-class PaymentItem implements Arrayable
+class PaymentItem extends ValueObject
 {
     /**
      * @param float $price İlgili ürün ya da hizmetin sepet tutarı

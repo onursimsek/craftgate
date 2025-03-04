@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace OnurSimsek\Craftgate\ValueObjects;
 
-use OnurSimsek\Craftgate\Contracts\Arrayable;
 use OnurSimsek\Craftgate\Enums\Currency;
 use OnurSimsek\Craftgate\Enums\PaymentGroup;
 use OnurSimsek\Craftgate\Enums\PaymentPhase;
 
-class Payment implements Arrayable
+class Payment extends ValueObject
 {
     /**
      * @param float $price Toplam ödeme tutarı. Sepetteki ürün/hizmet tutarları toplamının bu tutara eşit olması gerekmektedir
@@ -60,13 +59,13 @@ class Payment implements Arrayable
         return new self(
             price: $params['price'],
             paidPrice: $params['paidPrice'],
-            items: $params['items'],
+            items: self::hydrate($params['items'], PaymentItem::class, true),
             currency: $params['currency'] ?? Currency::TL,
             installment: $params['installment'] ?? 1,
-            walletPrice: $params['walletPrice'] ?? 0,
+            walletPrice: $params['walletPrice'] ?? 0.0,
             paymentGroup: $params['paymentGroup'] ?? null,
             conversationId: $params['conversationId'] ?? null,
-            card: $params['card'] ?? null,
+            card: self::hydrate($params['card'] ?? null, Card::class),
             buyerMemberId: $params['buyerMemberId'] ?? null,
             externalId: $params['externalId'] ?? null,
             paymentPhase: $params['paymentPhase'] ?? null,
@@ -74,9 +73,9 @@ class Payment implements Arrayable
             bankOrderId: $params['bankOrderId'] ?? null,
             clientIp: $params['clientIp'] ?? null,
             posAlias: $params['posAlias'] ?? null,
-            retry: $params['retry'] ?? false,
-            fraudParams: $params['fraudParams'] ?? null,
-            additionalParams: $params['additionalParams'] ?? null
+            retry: $params['retry'] ?? true,
+            fraudParams: self::hydrate($params['fraudParams'] ?? null, FraudCheck::class),
+            additionalParams: self::hydrate($params['additionalParams'] ?? null, AdditionalParams::class),
         );
     }
 
@@ -85,7 +84,7 @@ class Payment implements Arrayable
         return [
             'price' => $this->price,
             'paidPrice' => $this->paidPrice,
-            'items' => $this->items,
+            'items' => self::dehydrateList($this->items),
             'currency' => $this->currency->value,
             'installment' => $this->installment,
             'walletPrice' => $this->walletPrice,

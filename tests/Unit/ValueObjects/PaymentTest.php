@@ -22,14 +22,14 @@ class PaymentTest extends ValueObjectTestCase
             [
                 Payment::class,
                 [
-                    'price' => 100,
-                    'paidPrice' => 100,
+                    'price' => 100.0,
+                    'paidPrice' => 100.0,
                     'items' => [
                         parent::mock(PaymentItem::class),
                     ],
                     'currency' => Currency::EUR,
                     'installment' => 4,
-                    'walletPrice' => 10,
+                    'walletPrice' => 10.0,
                     'paymentGroup' => PaymentGroup::Product,
                     'conversationId' => Util::guid(),
                     'card' => parent::mock(Card::class),
@@ -44,18 +44,21 @@ class PaymentTest extends ValueObjectTestCase
                     'fraudParams' => parent::mock(FraudCheck::class),
                     'additionalParams' => parent::mock(AdditionalParams::class),
                 ],
+                [
+                    'items' => [],
+                ],
             ],
             [
                 Payment::class,
                 [
-                    'price' => 100,
-                    'paidPrice' => 100,
+                    'price' => 100.0,
+                    'paidPrice' => 100.0,
                     'items' => [],
                 ],
                 [
-                    'currency' => Currency::TL,
+                    'currency' => 'TRY',
                     'installment' => 1,
-                    'walletPrice' => 0,
+                    'walletPrice' => 0.0,
                     'paymentGroup' => null,
                     'conversationId' => null,
                     'card' => null,
@@ -71,6 +74,83 @@ class PaymentTest extends ValueObjectTestCase
                     'additionalParams' => null,
                 ],
             ],
+        ];
+    }
+
+    public static function rawArrayProvider(): array
+    {
+        return [
+            [
+                Payment::class,
+                [
+                    'price' => 100.50,
+                    'paidPrice' => 100.50,
+                    'walletPrice' => 0.0,
+                    'installment' => 1,
+                    'currency' => Currency::TL,
+                    'paymentGroup' => PaymentGroup::ListingOrSubscription,
+                    'conversationId' => Util::guid(),
+                    'card' => [
+                        'cardHolderName' => 'John Doe',
+                        'cardNumber' => '5258640000000001',
+                        'expireYear' => '2085',
+                        'expireMonth' => '01',
+                        'cvc' => '015',
+                    ],
+                    'items' => [
+                        [
+                            'externalId' => Util::guid(),
+                            'name' => 'Item 1',
+                            'price' => 30.10,
+                        ],
+                        [
+                            'externalId' => Util::guid(),
+                            'name' => 'Item 2',
+                            'price' => 50.20,
+                        ],
+                        [
+                            'externalId' => Util::guid(),
+                            'name' => 'Item 3',
+                            'price' => 20.20,
+                        ],
+                    ],
+                ],
+                [
+                    'currency' => 'TRY',
+                    'paymentGroup' => 'LISTING_OR_SUBSCRIPTION',
+                    'card' => [
+                        'storeCardAfterSuccessPayment' => false,
+                        'cardAlias' => null,
+                        'cardUserKey' => null,
+                        'cardToken' => null,
+                        'loyalty' => null,
+                    ],
+                    'items' => [
+                        [
+                            'subMerchantMemberId' => null,
+                            'subMerchantMemberPrice' => null,
+                        ],
+                        [
+                            'subMerchantMemberId' => null,
+                            'subMerchantMemberPrice' => null,
+                        ],
+                        [
+                            'subMerchantMemberId' => null,
+                            'subMerchantMemberPrice' => null,
+                        ],
+                    ],
+                    'buyerMemberId' => null,
+                    'externalId' => null,
+                    'paymentPhase' => null,
+                    'paymentChannel' => null,
+                    'bankOrderId' => null,
+                    'clientIp' => null,
+                    'posAlias' => null,
+                    'retry' => true,
+                    'fraudParams' => null,
+                    'additionalParams' => null,
+                ],
+            ]
         ];
     }
 }

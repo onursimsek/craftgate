@@ -14,4 +14,9 @@ class AdditionalParamsTest extends ValueObjectTestCase
             [AdditionalParams::class, ['msisdn' => 'foo']],
         ];
     }
+
+    public static function rawArrayProvider(): array
+    {
+        return self::provider();
+    }
 }

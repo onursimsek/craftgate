@@ -29,4 +29,20 @@ class LoyaltyTest extends ValueObjectTestCase
             ],
         ];
     }
+
+    public static function rawArrayProvider(): array
+    {
+        return [
+            [
+                Loyalty::class,
+                [
+                    'type' => LoyaltyType::ExtraPoints,
+                    'reward' => [
+                        'cardRewardMoney' => 123.0,
+                        'firmRewardMoney' => 12.3,
+                    ],
+                ],
+            ],
+        ];
+    }
 }

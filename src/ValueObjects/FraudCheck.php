@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace OnurSimsek\Craftgate\ValueObjects;
 
-use OnurSimsek\Craftgate\Contracts\Arrayable;
-
-class FraudCheck implements Arrayable
+class FraudCheck extends ValueObject
 {
     /**
      * @param string $buyerExternalId Alıcıya özel üretilmiş unique değer
