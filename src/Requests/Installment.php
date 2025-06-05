@@ -26,7 +26,7 @@ final class Installment extends RequestDecorator
         return $this->withPath('bins', $binNumber)->send();
     }
 
-    public function proxy(): InstallmentProxy
+    protected function proxy(): InstallmentProxy
     {
         return $this->proxy ??= new InstallmentProxy($this);
     }

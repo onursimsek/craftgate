@@ -6,7 +6,6 @@ namespace OnurSimsek\Craftgate\Requests;
 
 use OnurSimsek\Craftgate\Contracts\RequestBridge;
 use OnurSimsek\Craftgate\Contracts\RequestInterface;
-use OnurSimsek\Craftgate\Endpoints\BaseRequest;
 
 abstract class AbstractRequestBridge implements RequestBridge
 {
