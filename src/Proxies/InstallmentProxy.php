@@ -10,14 +10,13 @@ use Psr\Http\Message\ResponseInterface;
 
 class InstallmentProxy implements Proxy
 {
-    public function __construct(public readonly Installment $installment)
-    {
-    }
+    public function __construct(public readonly Installment $installment) {}
 
     public function searchInstallments(array $params = []): ResponseInterface
     {
         $price = $params['price'];
         unset($params['price']);
+
         return $this->installment->search($price, $params);
     }
 

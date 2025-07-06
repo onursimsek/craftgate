@@ -21,9 +21,9 @@ $craftgate->installment()->bin('525864');
 $response = $craftgate->installment()->searchInstallments([
     'binNumber' => '525864',
     'price' => 100,
-    'currency' => 'TRY'
+    'currency' => 'TRY',
 ]);
-//var_dump($response->getBody()->getContents());
+// var_dump($response->getBody()->getContents());
 
 $response = $craftgate->installment()->retrieveBinNumber('525864');
-//var_dump($response->getBody()->getContents());
+// var_dump($response->getBody()->getContents());
