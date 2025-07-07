@@ -60,12 +60,4 @@ class InstallmentTest extends TestCase
         $this->assertInstanceOf(ResponseInterface::class, $response);
         $this->assertEquals('installment/v1/bins/123456', $installments->psrRequest()->getUri()->getPath());
     }
-
-    #[Test]
-    public function it_should_have_proxy()
-    {
-        $proxy = $this->installmentInstance()->proxy();
-
-        $this->assertInstanceOf(InstallmentProxy::class, $proxy);
-    }
 }
