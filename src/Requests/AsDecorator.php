@@ -7,4 +7,6 @@ namespace OnurSimsek\Craftgate\Requests;
 use Attribute;
 
 #[Attribute(Attribute::TARGET_METHOD)]
-class AsDecorator {}
+class AsDecorator
+{
+}

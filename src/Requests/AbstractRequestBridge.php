@@ -12,5 +12,7 @@ abstract class AbstractRequestBridge implements RequestBridge
     /**
      * @param  RequestInterface&BaseRequest  $request
      */
-    public function __construct(protected readonly RequestInterface $request) {}
+    public function __construct(protected readonly RequestInterface $request)
+    {
+    }
 }

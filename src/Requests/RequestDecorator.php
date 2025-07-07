@@ -23,7 +23,9 @@ abstract class RequestDecorator implements RequestInterface
     /**
      * @param  RequestInterface&BaseRequest  $request
      */
-    public function __construct(protected readonly RequestInterface $request) {}
+    public function __construct(protected readonly RequestInterface $request)
+    {
+    }
 
     public function options(): Options
     {
