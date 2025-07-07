@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OnurSimsek\Craftgate\Endpoints;
+namespace OnurSimsek\Craftgate\Requests;
 
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Utils;
@@ -68,7 +68,7 @@ class BaseRequest implements RequestInterface
         return $this;
     }
 
-    public function withHeader(string $header, string $value): RequestInterface
+    public function withHeader(string $header, string $value): self
     {
         $this->request = $this->request->withHeader($header, $value);
         return $this;

@@ -46,7 +46,7 @@ class Options implements OptionsContract
         return $this->language;
     }
 
-    public static function fromArray(array $params): self
+    public static function fromArray(array $params): static
     {
         return new self(
             apiKey: $params['apiKey'],

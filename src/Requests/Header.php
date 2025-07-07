@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OnurSimsek\Craftgate\Endpoints;
+namespace OnurSimsek\Craftgate\Requests;
 
 enum Header: string
 {

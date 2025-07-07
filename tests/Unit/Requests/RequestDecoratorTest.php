@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace OnurSimsek\Craftgate\Tests\Unit\Endpoints;
+namespace OnurSimsek\Craftgate\Tests\Unit\Requests;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Uri;
 use OnurSimsek\Craftgate\Contracts\Options;
-use OnurSimsek\Craftgate\Endpoints\BaseRequest;
-use OnurSimsek\Craftgate\Endpoints\Header;
-use OnurSimsek\Craftgate\Endpoints\RequestDecorator;
+use OnurSimsek\Craftgate\Contracts\Proxy;
+use OnurSimsek\Craftgate\Requests\BaseRequest;
+use OnurSimsek\Craftgate\Requests\Header;
+use OnurSimsek\Craftgate\Requests\RequestDecorator;
 use OnurSimsek\Craftgate\Tests\TestCase;
 use OnurSimsek\Craftgate\Tests\Traits\WithRequest;
 use PHPUnit\Framework\Attributes\Test;
@@ -20,14 +21,35 @@ class RequestDecoratorTest extends TestCase
 {
     use WithRequest;
 
-    private function decoratorInstance(): RequestDecorator
+    private function baseRequest(): BaseRequest
     {
         $mock = $this->fakeServer();
         $this->addResponse(200, 'Hello, World');
 
-        $request = new BaseRequest($this->options(), new Client(['handler' => HandlerStack::create($mock)]));
+        return new BaseRequest($this->options(), new Client(['handler' => HandlerStack::create($mock)]));
+    }
 
-        return new class ($request) extends RequestDecorator {
+    public static function proxy(): Proxy
+    {
+        return new class () implements Proxy {
+            public function foo(): string
+            {
+                return 'foo';
+            }
+        };
+    }
+
+    private function decoratorInstance(): RequestDecorator
+    {
+        return new class ($this->baseRequest()) extends RequestDecorator {
+            protected string $prefix = 'payments';
+
+            protected string $version = 'v1';
+
+            protected function proxy(): Proxy
+            {
+                return $this->proxy ??= RequestDecoratorTest::proxy();
+            }
         };
     }
 
@@ -48,6 +70,29 @@ class RequestDecoratorTest extends TestCase
         $expected = 'https://example.com/installment/v1/installment';
 
         $this->assertEquals($expected, $decorator->withUri(new Uri($expected))->psrRequest()->getUri());
+    }
+
+    #[Test]
+    public function it_should_be_set_path()
+    {
+        $decorator = $this->decoratorInstance();
+
+        $path = ['deposits', 'apm-init'];
+
+        $this->assertEquals(
+            expected: 'payments/v1/' . implode('/', $path),
+            actual: $decorator->withPath(...$path)->psrRequest()->getUri()->getPath()
+        );
+    }
+
+    #[Test]
+    public function it_should_be_set_query()
+    {
+        $decorator = $this->decoratorInstance();
+
+        $query = ['foo' => 'bar', 'zoo' => 'bar'];
+
+        $this->assertEquals(http_build_query($query), $decorator->withQuery($query)->psrRequest()->getUri()->getQuery());
     }
 
     #[Test]
@@ -74,12 +119,7 @@ class RequestDecoratorTest extends TestCase
     #[Test]
     public function it_should_be_send_a_request()
     {
-        $mock = $this->fakeServer();
-        $this->addResponse(200, 'Hello, World');
-
-        $request = new BaseRequest($this->options(), new Client(['handler' => HandlerStack::create($mock)]));
-        $decorator = new class ($request) extends RequestDecorator {
-        };
+        $decorator = $this->decoratorInstance();
 
         $response = $decorator->send();
 
@@ -88,5 +128,16 @@ class RequestDecoratorTest extends TestCase
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('Hello, World', $response->getBody()->getContents());
+    }
+
+    #[Test]
+    public function it_should_be_run_proxy_class_method()
+    {
+        $decorator = $this->decoratorInstance();
+
+        $this->assertEquals('foo', $decorator->foo());
+
+        $this->expectException(\BadMethodCallException::class);
+        $decorator->bar();
     }
 }

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace OnurSimsek\Craftgate\Tests\Unit\Endpoints;
+namespace OnurSimsek\Craftgate\Tests\Unit\Requests;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Uri;
 use OnurSimsek\Craftgate\Contracts\Options;
-use OnurSimsek\Craftgate\Endpoints\BaseRequest;
-use OnurSimsek\Craftgate\Endpoints\Header;
+use OnurSimsek\Craftgate\Requests\BaseRequest;
+use OnurSimsek\Craftgate\Requests\Header;
 use OnurSimsek\Craftgate\Tests\TestCase;
 use OnurSimsek\Craftgate\Tests\Traits\WithRequest;
 use PHPUnit\Framework\Attributes\Test;
@@ -20,7 +20,7 @@ class BaseRequestTest extends TestCase
     use WithRequest;
 
     #[Test]
-    public function it_should_be_initialized(): void
+    public function it_should_be_initialized()
     {
         $request = new BaseRequest($this->options(), $this->client());
 
