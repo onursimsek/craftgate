@@ -13,7 +13,6 @@ use OnurSimsek\Craftgate\ValueObjects\PaymentItem;
 require __DIR__ . '/init.php';
 
 /** @var Craftgate $craftgate */
-
 $items = [
     new PaymentItem(30, 'item 1', Util::guid()),
     new PaymentItem(50, 'item 2', Util::guid()),
@@ -24,13 +23,12 @@ $card = new Card('John Doe', '5258640000000001', '2085', '01', '015');
 
 $payment = new Payment(100, 100, $items, card: $card);
 
-$craftgate->payment()->cardPayment()->create($payment);
+$response = $craftgate->payment()->cardPayment()->create($payment);
+var_dump($response->getBody()->getContents());
 
 /**
  * Old method
  */
-
-/*
 $params = [
     'price' => 100,
     'paidPrice' => 100,
@@ -65,4 +63,5 @@ $params = [
     ],
 ];
 
-$craftgate->payment()->createPayment($params);*/
+$resp = $craftgate->payment()->createPayment($params);
+var_dump($resp);
