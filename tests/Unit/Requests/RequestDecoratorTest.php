@@ -31,8 +31,7 @@ class RequestDecoratorTest extends TestCase
 
     public static function proxy(): Proxy
     {
-        return new class implements Proxy
-        {
+        return new class () implements Proxy {
             public function foo(): string
             {
                 return 'foo';
@@ -42,8 +41,7 @@ class RequestDecoratorTest extends TestCase
 
     private function decoratorInstance(): RequestDecorator
     {
-        return new class($this->baseRequest()) extends RequestDecorator
-        {
+        return new class ($this->baseRequest()) extends RequestDecorator {
             protected string $prefix = 'payments';
 
             protected string $version = 'v1';

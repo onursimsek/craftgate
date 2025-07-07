@@ -6,7 +6,6 @@ namespace OnurSimsek\Craftgate\Tests\Unit\Requests;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
-use OnurSimsek\Craftgate\Proxies\InstallmentProxy;
 use OnurSimsek\Craftgate\Requests\BaseRequest;
 use OnurSimsek\Craftgate\Requests\Installment;
 use OnurSimsek\Craftgate\Tests\TestCase;
