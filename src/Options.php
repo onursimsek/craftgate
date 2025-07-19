@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OnurSimsek\Craftgate;
 
+use Composer\InstalledVersions;
 use GuzzleHttp\Psr7\Uri;
 use OnurSimsek\Craftgate\Contracts\Options as OptionsContract;
 use Psr\Http\Message\UriInterface;
@@ -12,6 +13,9 @@ class Options implements OptionsContract
 {
     private const BASE_URL = 'https://api.craftgate.io';
     private const LANGUAGE = 'tr';
+    private const AUTH_VERSION = 'v1';
+
+    private string $clientVersion;
 
     public function __construct(
         private readonly string $apiKey,
@@ -19,6 +23,8 @@ class Options implements OptionsContract
         private readonly string $baseUrl = self::BASE_URL,
         private readonly string $language = self::LANGUAGE
     ) {
+        $package = InstalledVersions::getRootPackage();
+        $this->clientVersion = sprintf('%s:%s', $package['name'], $package['version']);
     }
 
     public function getApiKey(): string
@@ -44,6 +50,16 @@ class Options implements OptionsContract
     public function getLanguage(): string
     {
         return $this->language;
+    }
+
+    public function getClientVersion(): string
+    {
+        return $this->clientVersion;
+    }
+
+    public function getAuthVersion(): string
+    {
+        return self::AUTH_VERSION;
     }
 
     public static function fromArray(array $params): static
