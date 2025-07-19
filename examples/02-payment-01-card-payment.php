@@ -6,9 +6,9 @@ use OnurSimsek\Craftgate\Craftgate;
 use OnurSimsek\Craftgate\Enums\Currency;
 use OnurSimsek\Craftgate\Enums\PaymentGroup;
 use OnurSimsek\Craftgate\Util;
-use OnurSimsek\Craftgate\ValueObjects\Card;
+use OnurSimsek\Craftgate\ValueObjects\Components\Card;
+use OnurSimsek\Craftgate\ValueObjects\Components\PaymentItem;
 use OnurSimsek\Craftgate\ValueObjects\Payment;
-use OnurSimsek\Craftgate\ValueObjects\PaymentItem;
 
 require __DIR__ . '/init.php';
 

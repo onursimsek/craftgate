@@ -9,7 +9,7 @@ use OnurSimsek\Craftgate\Requests\Payments\CardPayment;
 use OnurSimsek\Craftgate\ValueObjects\Payment;
 use Psr\Http\Message\ResponseInterface;
 
-class CardPaymentProxy implements Proxy
+final class CardPaymentProxy implements Proxy
 {
     public function __construct(public readonly CardPayment $cardPayment)
     {
