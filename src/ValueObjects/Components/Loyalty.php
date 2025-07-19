@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace OnurSimsek\Craftgate\ValueObjects;
+namespace OnurSimsek\Craftgate\ValueObjects\Components;
 
 use OnurSimsek\Craftgate\Enums\LoyaltyType;
+use OnurSimsek\Craftgate\ValueObjects\ValueObject;
 
 class Loyalty extends ValueObject
 {

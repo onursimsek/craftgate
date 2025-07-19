@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace OnurSimsek\Craftgate\Tests\Unit\ValueObjects;
 
 use OnurSimsek\Craftgate\Util;
-use OnurSimsek\Craftgate\ValueObjects\FraudCheck;
+use OnurSimsek\Craftgate\ValueObjects\Components\FraudCheck;
 
 class FraudCheckTest extends ValueObjectTestCase
 {

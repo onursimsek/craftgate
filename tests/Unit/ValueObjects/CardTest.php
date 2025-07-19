@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OnurSimsek\Craftgate\Tests\Unit\ValueObjects;
 
-use OnurSimsek\Craftgate\ValueObjects\Card;
+use OnurSimsek\Craftgate\ValueObjects\Components\Card;
 
 class CardTest extends ValueObjectTestCase
 {

@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace OnurSimsek\Craftgate\ValueObjects;
+namespace OnurSimsek\Craftgate\ValueObjects\Components;
+
+use OnurSimsek\Craftgate\ValueObjects\ValueObject;
 
 class Card extends ValueObject
 {
