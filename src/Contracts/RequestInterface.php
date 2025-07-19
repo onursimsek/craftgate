@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OnurSimsek\Craftgate\Contracts;
 
+use OnurSimsek\Craftgate\Requests\HttpVerb;
 use Psr\Http\Message\RequestInterface as PsrRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
@@ -20,7 +21,7 @@ interface RequestInterface
 
     public function withQuery(array $params): self;
 
-    public function withMethod(string $method): self;
+    public function withMethod(HttpVerb $method): self;
 
     public function withBody(array $body): self;
 

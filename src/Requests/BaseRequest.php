@@ -23,8 +23,8 @@ class BaseRequest implements RequestInterface
         $this->request = new Request('GET', $options->getUri());
         $this->request = $this->request->withHeader('Content-Type', 'application/json')
             ->withHeader('Accept', 'application/json')
-            ->withHeader(Header::ClientVersion->value, 'onursimsek/craftgate:1.0.0')
-            ->withHeader(Header::AuthVersion->value, 'v1')
+            ->withHeader(Header::ClientVersion->value, $options->getClientVersion())
+            ->withHeader(Header::AuthVersion->value, $options->getAuthVersion())
             ->withHeader(Header::ApiKey->value, $options->getApiKey());
     }
 
@@ -62,9 +62,9 @@ class BaseRequest implements RequestInterface
         return $this;
     }
 
-    public function withMethod(string $method): RequestInterface
+    public function withMethod(HttpVerb $method): RequestInterface
     {
-        $this->request = $this->request->withMethod($method);
+        $this->request = $this->request->withMethod($method->value);
         return $this;
     }
 
