@@ -6,6 +6,7 @@ namespace OnurSimsek\Craftgate\Requests\Payments;
 
 use OnurSimsek\Craftgate\Contracts\Proxy;
 use OnurSimsek\Craftgate\Proxies\CardPaymentProxy;
+use OnurSimsek\Craftgate\Requests\HttpVerb;
 use OnurSimsek\Craftgate\Requests\RequestDecorator;
 use OnurSimsek\Craftgate\ValueObjects\Payment;
 use Psr\Http\Message\ResponseInterface;
@@ -19,7 +20,7 @@ final class CardPayment extends RequestDecorator
 
     public function create(Payment $payment): ResponseInterface
     {
-        return $this->withMethod('post')
+        return $this->withMethod(HttpVerb::Post)
             ->withPath('card-payments')
             ->withBody($payment->toArray())
             ->send();
@@ -32,7 +33,7 @@ final class CardPayment extends RequestDecorator
 
     public function postAuth(int $id, array $params): ResponseInterface
     {
-        return $this->withMethod('post')
+        return $this->withMethod(HttpVerb::Post)
             ->withPath('card-payments', $id, 'post-auth')
             ->withBody($params)
             ->send();
@@ -40,7 +41,7 @@ final class CardPayment extends RequestDecorator
 
     public function initThreeDSecure(array $param): ResponseInterface
     {
-        return $this->withMethod('post')
+        return $this->withMethod(HttpVerb::Post)
             ->withPath('card-payments', '3ds-init')
             ->withBody($param)
             ->send();
@@ -48,7 +49,7 @@ final class CardPayment extends RequestDecorator
 
     public function completeThreeDSecure(array $param): ResponseInterface
     {
-        return $this->withMethod('post')
+        return $this->withMethod(HttpVerb::Post)
             ->withPath('card-payments', '3ds-complete')
             ->withBody($param)
             ->send();

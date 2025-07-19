@@ -13,4 +13,6 @@ interface Options extends Arrayable
     public function getBaseUrl(): string;
     public function getUri(): UriInterface;
     public function getLanguage(): string;
+    public function getClientVersion(): string;
+    public function getAuthVersion(): string;
 }

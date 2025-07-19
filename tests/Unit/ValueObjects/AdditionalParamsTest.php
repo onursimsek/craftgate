@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OnurSimsek\Craftgate\Tests\Unit\ValueObjects;
 
-use OnurSimsek\Craftgate\ValueObjects\AdditionalParams;
+use OnurSimsek\Craftgate\ValueObjects\Components\AdditionalParams;
 
 class AdditionalParamsTest extends ValueObjectTestCase
 {

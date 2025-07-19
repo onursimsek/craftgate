@@ -10,6 +10,7 @@ use GuzzleHttp\Psr7\Uri;
 use OnurSimsek\Craftgate\Contracts\Options;
 use OnurSimsek\Craftgate\Requests\BaseRequest;
 use OnurSimsek\Craftgate\Requests\Header;
+use OnurSimsek\Craftgate\Requests\HttpVerb;
 use OnurSimsek\Craftgate\Tests\TestCase;
 use OnurSimsek\Craftgate\Tests\Traits\WithRequest;
 use PHPUnit\Framework\Attributes\Test;
@@ -27,7 +28,7 @@ class BaseRequestTest extends TestCase
         $this->assertInstanceOf(Options::class, $request->options());
         $this->assertInstanceOf(RequestInterface::class, $request->psrRequest());
 
-        $this->assertEquals(['onursimsek/craftgate:1.0.0'], $request->psrRequest()->getHeader(Header::ClientVersion->value));
+        $this->assertEquals(['onursimsek/craftgate'], $request->psrRequest()->getHeader(Header::ClientVersion->value));
         $this->assertEquals(['v1'], $request->psrRequest()->getHeader(Header::AuthVersion->value));
         $this->assertEquals([$this->options()->getApiKey()], $request->psrRequest()->getHeader(Header::ApiKey->value));
 
@@ -50,7 +51,7 @@ class BaseRequestTest extends TestCase
         $request = new BaseRequest($this->options(), $this->client());
 
         $this->assertEquals('GET', $request->psrRequest()->getMethod());
-        $this->assertEquals('POST', $request->withMethod('POST')->psrRequest()->getMethod());
+        $this->assertEquals('POST', $request->withMethod(HttpVerb::Post)->psrRequest()->getMethod());
     }
 
     #[Test]

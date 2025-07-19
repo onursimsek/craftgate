@@ -7,6 +7,10 @@ namespace OnurSimsek\Craftgate\ValueObjects;
 use OnurSimsek\Craftgate\Enums\Currency;
 use OnurSimsek\Craftgate\Enums\PaymentGroup;
 use OnurSimsek\Craftgate\Enums\PaymentPhase;
+use OnurSimsek\Craftgate\ValueObjects\Components\AdditionalParams;
+use OnurSimsek\Craftgate\ValueObjects\Components\Card;
+use OnurSimsek\Craftgate\ValueObjects\Components\FraudCheck;
+use OnurSimsek\Craftgate\ValueObjects\Components\PaymentItem;
 
 class Payment extends ValueObject
 {

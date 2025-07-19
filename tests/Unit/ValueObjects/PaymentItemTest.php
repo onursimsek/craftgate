@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace OnurSimsek\Craftgate\Tests\Unit\ValueObjects;
 
 use OnurSimsek\Craftgate\Util;
-use OnurSimsek\Craftgate\ValueObjects\PaymentItem;
+use OnurSimsek\Craftgate\ValueObjects\Components\PaymentItem;
 
 class PaymentItemTest extends ValueObjectTestCase
 {

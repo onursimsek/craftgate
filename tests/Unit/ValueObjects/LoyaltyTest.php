@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace OnurSimsek\Craftgate\Tests\Unit\ValueObjects;
 
 use OnurSimsek\Craftgate\Enums\LoyaltyType;
-use OnurSimsek\Craftgate\ValueObjects\Loyalty;
-use OnurSimsek\Craftgate\ValueObjects\Reward;
+use OnurSimsek\Craftgate\ValueObjects\Components\Loyalty;
+use OnurSimsek\Craftgate\ValueObjects\Components\Reward;
 
 class LoyaltyTest extends ValueObjectTestCase
 {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OnurSimsek\Craftgate\Tests\Unit\ValueObjects;
 
-use OnurSimsek\Craftgate\ValueObjects\Reward;
+use OnurSimsek\Craftgate\ValueObjects\Components\Reward;
 
 class RewardTest extends ValueObjectTestCase
 {

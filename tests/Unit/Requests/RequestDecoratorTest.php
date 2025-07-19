@@ -11,6 +11,7 @@ use OnurSimsek\Craftgate\Contracts\Options;
 use OnurSimsek\Craftgate\Contracts\Proxy;
 use OnurSimsek\Craftgate\Requests\BaseRequest;
 use OnurSimsek\Craftgate\Requests\Header;
+use OnurSimsek\Craftgate\Requests\HttpVerb;
 use OnurSimsek\Craftgate\Requests\RequestDecorator;
 use OnurSimsek\Craftgate\Tests\TestCase;
 use OnurSimsek\Craftgate\Tests\Traits\WithRequest;
@@ -101,7 +102,7 @@ class RequestDecoratorTest extends TestCase
         $decorator = $this->decoratorInstance();
 
         $this->assertEquals('GET', $decorator->psrRequest()->getMethod());
-        $this->assertEquals('POST', $decorator->withMethod('POST')->psrRequest()->getMethod());
+        $this->assertEquals('POST', $decorator->withMethod(HttpVerb::Post)->psrRequest()->getMethod());
     }
 
     #[Test]

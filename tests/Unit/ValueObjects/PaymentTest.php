@@ -8,11 +8,11 @@ use OnurSimsek\Craftgate\Enums\Currency;
 use OnurSimsek\Craftgate\Enums\PaymentGroup;
 use OnurSimsek\Craftgate\Enums\PaymentPhase;
 use OnurSimsek\Craftgate\Util;
-use OnurSimsek\Craftgate\ValueObjects\AdditionalParams;
-use OnurSimsek\Craftgate\ValueObjects\Card;
-use OnurSimsek\Craftgate\ValueObjects\FraudCheck;
+use OnurSimsek\Craftgate\ValueObjects\Components\AdditionalParams;
+use OnurSimsek\Craftgate\ValueObjects\Components\Card;
+use OnurSimsek\Craftgate\ValueObjects\Components\FraudCheck;
+use OnurSimsek\Craftgate\ValueObjects\Components\PaymentItem;
 use OnurSimsek\Craftgate\ValueObjects\Payment;
-use OnurSimsek\Craftgate\ValueObjects\PaymentItem;
 
 class PaymentTest extends ValueObjectTestCase
 {

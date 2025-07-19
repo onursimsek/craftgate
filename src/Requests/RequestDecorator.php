@@ -58,7 +58,7 @@ abstract class RequestDecorator implements RequestInterface
         return $this;
     }
 
-    public function withMethod(string $method): RequestInterface
+    public function withMethod(HttpVerb $method): RequestInterface
     {
         $this->request->withMethod($method);
 
