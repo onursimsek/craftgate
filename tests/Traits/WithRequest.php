@@ -42,6 +42,8 @@ trait WithRequest
             'getSecretKey' => 'secret-key',
             'getBaseUrl' => $this->baseUrl,
             'getUri' => new Uri($this->baseUrl),
+            'getClientVersion' => 'onursimsek/craftgate',
+            'getAuthVersion' => 'v1',
         ]);
     }
 
