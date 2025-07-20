@@ -16,7 +16,7 @@ use OnurSimsek\Craftgate\Requests\Payments\Deposit;
  * @mixin CardPaymentProxy
  * @mixin CheckoutPaymentProxy
  * @mixin DepositProxy
- */gs
+ */
 final class Payment extends AbstractRequestBridge
 {
     use ForwardCallsToDecorator;
