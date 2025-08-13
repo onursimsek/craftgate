@@ -32,7 +32,10 @@ trait ForwardCallsToDecorator
     {
         $reflection = new ReflectionClass($this);
         foreach ($reflection->findDecoratorMethods() as $method) {
-            $this->decoratorMap[$this->{$method->getName()}()] = iterator_to_array($reflection->getProxyMethodsFromDecorator($method));
+            $object = $this->{$method->getName()}();
+            $methods = iterator_to_array($reflection->getProxyMethodsFromDecorator($method));
+
+            $this->decoratorMap[$object] = $methods;
         }
     }
 }
