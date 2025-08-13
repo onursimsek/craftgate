@@ -67,7 +67,7 @@ class Payment extends ValueObject
             currency: $params['currency'] ?? Currency::TL,
             installment: $params['installment'] ?? 1,
             walletPrice: $params['walletPrice'] ?? 0.0,
-            paymentGroup: $params['paymentGroup'] ?? null,
+            paymentGroup: self::hydrate($params['paymentGroup'] ?? null, PaymentGroup::class),
             conversationId: $params['conversationId'] ?? null,
             card: self::hydrate($params['card'] ?? null, Card::class),
             buyerMemberId: $params['buyerMemberId'] ?? null,
