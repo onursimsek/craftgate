@@ -41,7 +41,7 @@ final class ReflectionClass extends \ReflectionClass
 
         $proxy = $this->proxyClassReflection($className);
         foreach ($proxy->getMethods(ReflectionMethod::IS_PUBLIC) as $proxyMethod) {
-            if (str_starts_with($proxyMethod->getName(), '__')) {
+            if ($this->isMagicMethod($proxyMethod->getName())) {
                 continue;
             }
             yield $proxyMethod->getName();
@@ -58,5 +58,28 @@ final class ReflectionClass extends \ReflectionClass
     private function proxyClassReflection(string $decorator): \ReflectionClass
     {
         return new \ReflectionClass(sprintf('%s%sProxy', self::PROXY_NAMESPACE, $decorator));
+    }
+
+    private function isMagicMethod(string $methodName): bool
+    {
+        return in_array($methodName, [
+            '__construct',
+            '__destruct',
+            '__call',
+            '__callStatic',
+            '__get',
+            '__set',
+            '__isset',
+            '__unset',
+            '__sleep',
+            '__wakeup',
+            '__serialize',
+            '__unserialize',
+            '__toString',
+            '__invoke',
+            '__set_state',
+            '__clone',
+            '__debugInfo',
+        ]);
     }
 }
