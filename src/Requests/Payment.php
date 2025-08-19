@@ -14,12 +14,15 @@ use OnurSimsek\Craftgate\Requests\Payments\CardPayment;
 use OnurSimsek\Craftgate\Requests\Payments\CheckoutPayment;
 use OnurSimsek\Craftgate\Requests\Payments\Deposit;
 use OnurSimsek\Craftgate\Requests\Payments\GarantiPay;
+use OnurSimsek\Craftgate\Requests\Payments\PosApmPayment;
 
 /**
  * @mixin CardPaymentProxy
  * @mixin CheckoutPaymentProxy
  * @mixin DepositProxy
  * @mixin GarantiPayProxy
+ * @mixin ApmPayment
+ * @mixin PosApmPayment
  */
 final class Payment extends AbstractRequestBridge
 {
@@ -51,5 +54,11 @@ final class Payment extends AbstractRequestBridge
     public function apmPayment(): ApmPayment
     {
         return Container::pushOrGet(ApmPayment::class, $this->request);
+    }
+
+    #[AsDecorator]
+    public function posApmPayment(): PosApmPayment
+    {
+        return Container::pushOrGet(PosApmPayment::class, $this->request);
     }
 }
