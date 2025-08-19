@@ -26,6 +26,6 @@ class GarantiPay extends RequestDecorator
 
     protected function proxy(): Proxy
     {
-        return Container::pushOrGet(GarantiPayProxy::class);
+        return Container::pushOrGet(GarantiPayProxy::class, $this);
     }
 }

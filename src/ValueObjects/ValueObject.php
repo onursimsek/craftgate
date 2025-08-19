@@ -40,7 +40,7 @@ abstract class ValueObject implements Arrayable
         return null;
     }
 
-    protected static function hydrateList(mixed $value, string $cast): array
+    private static function hydrateList(mixed $value, string $cast): array
     {
         return array_map(fn ($item) => self::hydrate($item, $cast), $value);
     }
