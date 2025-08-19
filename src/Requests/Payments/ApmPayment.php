@@ -33,6 +33,17 @@ class ApmPayment extends RequestDecorator
             ->send();
     }
 
+    public function complete(int $paymentId, array $additionalParams): ResponseInterface
+    {
+        return $this->withMethod(HttpVerb::Post)
+            ->withPath('apm-payments', 'complete')
+            ->withBody([
+                'paymentId' => $paymentId,
+                'additionalParams' => $additionalParams,
+            ])
+            ->send();
+    }
+
     protected function proxy(): Proxy
     {
         return Container::pushOrGet(ApmPaymentProxy::class, $this);
