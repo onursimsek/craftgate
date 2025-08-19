@@ -7,6 +7,7 @@ namespace OnurSimsek\Craftgate\ValueObjects;
 use OnurSimsek\Craftgate\Enums\ApmType;
 use OnurSimsek\Craftgate\Enums\Currency;
 use OnurSimsek\Craftgate\Enums\PaymentGroup;
+use OnurSimsek\Craftgate\ValueObjects\Components\PaymentItem;
 
 class InitializeApmPayment extends BaseApmPayment
 {

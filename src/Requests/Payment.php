@@ -9,6 +9,7 @@ use OnurSimsek\Craftgate\Proxies\CardPaymentProxy;
 use OnurSimsek\Craftgate\Proxies\CheckoutPaymentProxy;
 use OnurSimsek\Craftgate\Proxies\DepositProxy;
 use OnurSimsek\Craftgate\Proxies\GarantiPayProxy;
+use OnurSimsek\Craftgate\Requests\Payments\ApmPayment;
 use OnurSimsek\Craftgate\Requests\Payments\CardPayment;
 use OnurSimsek\Craftgate\Requests\Payments\CheckoutPayment;
 use OnurSimsek\Craftgate\Requests\Payments\Deposit;
@@ -44,5 +45,11 @@ final class Payment extends AbstractRequestBridge
     public function garantiPay(): GarantiPay
     {
         return Container::pushOrGet(GarantiPay::class, $this->request);
+    }
+
+    #[AsDecorator]
+    public function apmPayment(): ApmPayment
+    {
+        return Container::pushOrGet(ApmPayment::class, $this->request);
     }
 }
