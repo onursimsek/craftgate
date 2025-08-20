@@ -8,5 +8,4 @@ use OnurSimsek\Craftgate\Contracts\Arrayable;
 
 interface LoyaltyCard extends Arrayable
 {
-
 }
