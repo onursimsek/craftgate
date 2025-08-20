@@ -5,24 +5,31 @@ declare(strict_types=1);
 namespace OnurSimsek\Craftgate\Requests;
 
 use OnurSimsek\Craftgate\Concerns\Container;
-use OnurSimsek\Craftgate\Proxies\CardPaymentProxy;
-use OnurSimsek\Craftgate\Proxies\CheckoutPaymentProxy;
-use OnurSimsek\Craftgate\Proxies\DepositProxy;
-use OnurSimsek\Craftgate\Proxies\GarantiPayProxy;
-use OnurSimsek\Craftgate\Requests\Payments\ApmPayment;
-use OnurSimsek\Craftgate\Requests\Payments\CardPayment;
-use OnurSimsek\Craftgate\Requests\Payments\CheckoutPayment;
-use OnurSimsek\Craftgate\Requests\Payments\Deposit;
-use OnurSimsek\Craftgate\Requests\Payments\GarantiPay;
-use OnurSimsek\Craftgate\Requests\Payments\PosApmPayment;
+use OnurSimsek\Craftgate\Proxies\{ApmPaymentProxy,
+    CardLoyaltyProxy,
+    CardPaymentProxy,
+    CheckoutPaymentProxy,
+    DepositProxy,
+    GarantiPayProxy,
+    PosApmPaymentProxy
+};
+use OnurSimsek\Craftgate\Requests\Payments\{ApmPayment,
+    CardLoyalty,
+    CardPayment,
+    CheckoutPayment,
+    Deposit,
+    GarantiPay,
+    PosApmPayment
+};
 
 /**
  * @mixin CardPaymentProxy
  * @mixin CheckoutPaymentProxy
  * @mixin DepositProxy
  * @mixin GarantiPayProxy
- * @mixin ApmPayment
- * @mixin PosApmPayment
+ * @mixin ApmPaymentProxy
+ * @mixin PosApmPaymentProxy
+ * @mixin CardLoyaltyProxy
  */
 final class Payment extends AbstractRequestBridge
 {
@@ -60,5 +67,11 @@ final class Payment extends AbstractRequestBridge
     public function posApmPayment(): PosApmPayment
     {
         return Container::pushOrGet(PosApmPayment::class, $this->request);
+    }
+
+    #[AsDecorator]
+    public function cardLoyalty()
+    {
+        return Container::pushOrGet(CardLoyalty::class, $this->request);
     }
 }
