@@ -19,7 +19,7 @@ final class CardLoyaltyProxy implements Proxy
 
     public function retrieveLoyalties(array $params): ResponseInterface
     {
-        return $this->decorator->retrieve($this->getValueObject($params));
+        return $this->decorator->fetch($this->getValueObject($params));
     }
 
     private function getValueObject(array $params): LoyaltyCard

@@ -16,7 +16,7 @@ class CardLoyalty extends RequestDecorator
 {
     protected string $prefix = 'payment';
 
-    public function retrieve(LoyaltyCard $card): ResponseInterface
+    public function fetch(LoyaltyCard $card): ResponseInterface
     {
         return $this->withMethod(HttpVerb::Post)
             ->withPath('card-loyalties', 'retrieve')
