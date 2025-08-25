@@ -17,6 +17,7 @@ use OnurSimsek\Craftgate\Proxies\{ApmPaymentProxy,
     RefundTransactionProxy,
     TransactionProxy};
 use OnurSimsek\Craftgate\Requests\Payments\{ApmPayment,
+    Bnpl,
     Card,
     CardLoyalty,
     CardPayment,
@@ -107,5 +108,11 @@ final class Payment extends AbstractRequestBridge
     public function transaction()
     {
         return Container::pushOrGet(Transaction::class, $this->request);
+    }
+
+    #[AsDecorator]
+    public function bnpl()
+    {
+        return Container::pushOrGet(Bnpl::class, $this->request);
     }
 }
