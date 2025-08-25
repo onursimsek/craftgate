@@ -8,5 +8,6 @@ enum HttpVerb: string
 {
     case Get = 'get';
     case Post = 'post';
+    case Put = 'put';
     case Delete = 'delete';
 }
