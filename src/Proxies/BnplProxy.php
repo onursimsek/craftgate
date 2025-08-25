@@ -6,6 +6,7 @@ namespace OnurSimsek\Craftgate\Proxies;
 
 use OnurSimsek\Craftgate\Contracts\Proxy;
 use OnurSimsek\Craftgate\Requests\Payments\Bnpl;
+use OnurSimsek\Craftgate\ValueObjects\CreateBnplPayment;
 use OnurSimsek\Craftgate\ValueObjects\SearchBnplOffer;
 use Psr\Http\Message\ResponseInterface;
 
@@ -18,5 +19,10 @@ final class BnplProxy implements Proxy
     public function retrieveBnplOffers(array $params): ResponseInterface
     {
         return $this->decorator->offers(SearchBnplOffer::fromArray($params));
+    }
+
+    public function initBnplPayment(array $params): ResponseInterface
+    {
+        return $this->decorator->create(CreateBnplPayment::fromArray($params));
     }
 }
