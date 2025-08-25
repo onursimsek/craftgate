@@ -8,6 +8,7 @@ use OnurSimsek\Craftgate\Concerns\Container;
 use OnurSimsek\Craftgate\Proxies\{ApmPaymentProxy,
     CardLoyaltyProxy,
     CardPaymentProxy,
+    CardProxy,
     CheckoutPaymentProxy,
     DepositProxy,
     GarantiPayProxy,
@@ -15,6 +16,7 @@ use OnurSimsek\Craftgate\Proxies\{ApmPaymentProxy,
     RefundProxy,
     RefundTransactionProxy};
 use OnurSimsek\Craftgate\Requests\Payments\{ApmPayment,
+    Card,
     CardLoyalty,
     CardPayment,
     CheckoutPayment,
@@ -34,6 +36,7 @@ use OnurSimsek\Craftgate\Requests\Payments\{ApmPayment,
  * @mixin CardLoyaltyProxy
  * @mixin RefundProxy
  * @mixin RefundTransactionProxy
+ * @mixin CardProxy
  */
 final class Payment extends AbstractRequestBridge
 {
@@ -89,5 +92,11 @@ final class Payment extends AbstractRequestBridge
     public function refundTransaction()
     {
         return Container::pushOrGet(RefundTransaction::class, $this->request);
+    }
+
+    #[AsDecorator]
+    public function card()
+    {
+        return Container::pushOrGet(Card::class, $this->request);
     }
 }
