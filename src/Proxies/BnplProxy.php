@@ -30,4 +30,9 @@ final class BnplProxy implements Proxy
     {
         return $this->decorator->approve($paymentId);
     }
+
+    public function verifyBnplPayment(int $paymentId): ResponseInterface
+    {
+        return $this->decorator->approve($paymentId);
+    }
 }

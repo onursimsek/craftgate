@@ -40,6 +40,13 @@ class Bnpl extends RequestDecorator
             ->send();
     }
 
+    public function verify(int $paymentId): ResponseInterface
+    {
+        return $this->withMethod(HttpVerb::Post)
+            ->withPath('bnpl-payments', $paymentId, 'verify')
+            ->send();
+    }
+
     protected function proxy(): Proxy
     {
         return Container::pushOrGet(BnplProxy::class, $this);
