@@ -25,4 +25,9 @@ final class BnplProxy implements Proxy
     {
         return $this->decorator->create(CreateBnplPayment::fromArray($params));
     }
+
+    public function approveBnplPayment(int $paymentId): ResponseInterface
+    {
+        return $this->decorator->approve($paymentId);
+    }
 }
