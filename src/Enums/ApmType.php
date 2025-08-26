@@ -33,4 +33,5 @@ enum ApmType: string
     case Iwallet = 'IWALLET';
     case Metropol = 'METROPOL';
     case PaylandsMbWay = 'PAYLANDS_MB_WAY';
+    case Maslak = 'MASLAK';
 }
