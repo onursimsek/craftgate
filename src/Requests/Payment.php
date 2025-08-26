@@ -14,6 +14,7 @@ use OnurSimsek\Craftgate\Proxies\{ApmPaymentProxy,
     DepositProxy,
     GarantiPayProxy,
     InstantTransferBankProxy,
+    MultiPaymentProxy,
     PosApmPaymentProxy,
     RefundProxy,
     RefundTransactionProxy,
@@ -27,6 +28,7 @@ use OnurSimsek\Craftgate\Requests\Payments\{ApmPayment,
     Deposit,
     GarantiPay,
     InstantTransferBank,
+    MultiPayment,
     PosApmPayment,
     Refund,
     RefundTransaction,
@@ -46,6 +48,7 @@ use OnurSimsek\Craftgate\Requests\Payments\{ApmPayment,
  * @mixin TransactionProxy
  * @mixin BnplProxy
  * @mixin InstantTransferBankProxy
+ * @mixin MultiPaymentProxy
  */
 final class Payment extends AbstractRequestBridge
 {
@@ -125,5 +128,11 @@ final class Payment extends AbstractRequestBridge
     public function instantTransferBank()
     {
         return Container::pushOrGet(InstantTransferBank::class, $this->request);
+    }
+
+    #[AsDecorator]
+    public function multiPayment()
+    {
+        return Container::pushOrGet(MultiPayment::class, $this->request);
     }
 }
