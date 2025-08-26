@@ -6,12 +6,14 @@ namespace OnurSimsek\Craftgate\Requests;
 
 use OnurSimsek\Craftgate\Concerns\Container;
 use OnurSimsek\Craftgate\Proxies\{ApmPaymentProxy,
+    BnplProxy,
     CardLoyaltyProxy,
     CardPaymentProxy,
     CardProxy,
     CheckoutPaymentProxy,
     DepositProxy,
     GarantiPayProxy,
+    InstantTransferBankProxy,
     PosApmPaymentProxy,
     RefundProxy,
     RefundTransactionProxy,
@@ -24,6 +26,7 @@ use OnurSimsek\Craftgate\Requests\Payments\{ApmPayment,
     CheckoutPayment,
     Deposit,
     GarantiPay,
+    InstantTransferBank,
     PosApmPayment,
     Refund,
     RefundTransaction,
@@ -41,6 +44,8 @@ use OnurSimsek\Craftgate\Requests\Payments\{ApmPayment,
  * @mixin RefundTransactionProxy
  * @mixin CardProxy
  * @mixin TransactionProxy
+ * @mixin BnplProxy
+ * @mixin InstantTransferBankProxy
  */
 final class Payment extends AbstractRequestBridge
 {
@@ -114,5 +119,11 @@ final class Payment extends AbstractRequestBridge
     public function bnpl()
     {
         return Container::pushOrGet(Bnpl::class, $this->request);
+    }
+
+    #[AsDecorator]
+    public function instantTransferBank()
+    {
+        return Container::pushOrGet(InstantTransferBank::class, $this->request);
     }
 }
