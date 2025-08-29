@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace OnurSimsek\Craftgate;
 
+use OnurSimsek\Craftgate\Concerns\Container;
 use OnurSimsek\Craftgate\Contracts\Options as OptionsContract;
 use OnurSimsek\Craftgate\Contracts\RequestInterface;
 use OnurSimsek\Craftgate\Requests\BaseRequest;
 use OnurSimsek\Craftgate\Requests\Installment;
+use OnurSimsek\Craftgate\Requests\Onboarding;
 use OnurSimsek\Craftgate\Requests\Payment;
 use Psr\Http\Client\ClientInterface;
 
@@ -32,5 +34,10 @@ final class Craftgate
     public function payment(): Payment
     {
         return $this->payment ??= new Payment($this->baseRequest);
+    }
+
+    public function onboarding()
+    {
+        return Container::pushOrGet(Onboarding::class, $this->baseRequest);
     }
 }
