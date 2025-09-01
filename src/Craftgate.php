@@ -11,6 +11,7 @@ use OnurSimsek\Craftgate\Requests\BaseRequest;
 use OnurSimsek\Craftgate\Requests\Installment;
 use OnurSimsek\Craftgate\Requests\Onboarding;
 use OnurSimsek\Craftgate\Requests\Payment;
+use OnurSimsek\Craftgate\Requests\Wallet;
 use Psr\Http\Client\ClientInterface;
 
 final class Craftgate
@@ -39,5 +40,10 @@ final class Craftgate
     public function onboarding()
     {
         return Container::pushOrGet(Onboarding::class, $this->baseRequest);
+    }
+
+    public function wallet()
+    {
+        return Container::pushOrGet(Wallet::class, $this->baseRequest);
     }
 }
