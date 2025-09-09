@@ -26,7 +26,7 @@ final class Deposit extends RequestDecorator
         return $this->withMethod(HttpVerb::Post)
             ->withPath('deposits')
             ->withBody($params->toArray())
-            ->send();
+            ->psrSend();
     }
 
     public function createThreeDSecure(CreateThreeDSecureDeposit $params): ResponseInterface
@@ -34,7 +34,7 @@ final class Deposit extends RequestDecorator
         return $this->withMethod(HttpVerb::Post)
             ->withPath('deposits', '3ds-init')
             ->withBody($params->toArray())
-            ->send();
+            ->psrSend();
     }
 
     public function completeThreeDSecure(int $paymentId): ResponseInterface
@@ -42,7 +42,7 @@ final class Deposit extends RequestDecorator
         return $this->withMethod(HttpVerb::Post)
             ->withPath('deposits', '3ds-complete')
             ->withBody(['paymentId' => $paymentId])
-            ->send();
+            ->psrSend();
     }
 
     public function createApm(CreateApmDeposit $params): ResponseInterface
@@ -50,7 +50,7 @@ final class Deposit extends RequestDecorator
         return $this->withMethod(HttpVerb::Post)
             ->withPath('deposits', 'apm-init')
             ->withBody($params->toArray())
-            ->send();
+            ->psrSend();
     }
 
     public function createFundTransfer(CreateFundTransfer $params): ResponseInterface
@@ -58,7 +58,7 @@ final class Deposit extends RequestDecorator
         return $this->withMethod(HttpVerb::Post)
             ->withPath('deposits', 'fund-transfer')
             ->withBody($params->toArray())
-            ->send();
+            ->psrSend();
     }
 
     protected function proxy(): Proxy

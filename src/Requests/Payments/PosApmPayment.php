@@ -21,7 +21,7 @@ class PosApmPayment extends RequestDecorator
         return $this->withMethod(HttpVerb::Post)
             ->withPath('pos-apm-payments', 'init')
             ->withBody($payment->toArray())
-            ->send();
+            ->psrSend();
     }
 
     public function complete(int $paymentId): ResponseInterface
@@ -29,7 +29,7 @@ class PosApmPayment extends RequestDecorator
         return $this->withMethod(HttpVerb::Post)
             ->withPath('pos-apm-payments', 'complete')
             ->withBody(['paymentId' => $paymentId])
-            ->send();
+            ->psrSend();
     }
 
     protected function proxy(): Proxy

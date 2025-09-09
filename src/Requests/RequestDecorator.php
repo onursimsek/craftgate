@@ -72,9 +72,9 @@ abstract class RequestDecorator implements RequestInterface
         return $this;
     }
 
-    public function send(): ResponseInterface
+    public function psrSend(): ResponseInterface
     {
-        return $this->request->send();
+        return $this->request->psrSend();
     }
 
     abstract protected function proxy(): Proxy;

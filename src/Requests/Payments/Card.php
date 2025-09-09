@@ -23,7 +23,7 @@ class Card extends RequestDecorator
         return $this->withMethod(HttpVerb::Post)
             ->withPath('cards')
             ->withBody($data->toArray())
-            ->send();
+            ->psrSend();
     }
 
     public function update(UpdateStoredCard $data): ResponseInterface
@@ -31,7 +31,7 @@ class Card extends RequestDecorator
         return $this->withMethod(HttpVerb::Post)
             ->withPath('cards', 'update')
             ->withBody($data->toArray())
-            ->send();
+            ->psrSend();
     }
 
     public function search(SearchStoredCard $data): ResponseInterface
@@ -39,7 +39,7 @@ class Card extends RequestDecorator
         return $this->withMethod(HttpVerb::Get)
             ->withPath('cards')
             ->withQuery($data->toArray())
-            ->send();
+            ->psrSend();
     }
 
     public function delete(string $cardUserKey, string $cardToken): ResponseInterface
@@ -50,7 +50,7 @@ class Card extends RequestDecorator
                 'cardUserKey' => $cardUserKey,
                 'cardToken' => $cardToken,
             ])
-            ->send();
+            ->psrSend();
     }
 
     protected function proxy(): Proxy

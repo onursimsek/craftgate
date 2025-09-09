@@ -30,14 +30,14 @@ class Member extends RequestDecorator
                 'negativeAmountLimit' => $negativeAmountLimit,
                 'currency' => $currency?->value,
             ])
-            ->send();
+            ->psrSend();
     }
 
     public function fetchWallet(): ResponseInterface
     {
         return $this->withMethod(HttpVerb::Get)
             ->withPath('members', $this->id, 'wallet')
-            ->send();
+            ->psrSend();
     }
 
     protected function proxy(): Proxy

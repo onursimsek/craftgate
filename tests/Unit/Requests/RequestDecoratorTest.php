@@ -122,7 +122,7 @@ class RequestDecoratorTest extends TestCase
     {
         $decorator = $this->decoratorInstance();
 
-        $response = $decorator->send();
+        $response = $decorator->psrSend();
 
         $this->assertTrue($decorator->psrRequest()->hasHeader(Header::RandomKey->value));
         $this->assertTrue($decorator->psrRequest()->hasHeader(Header::Signature->value));

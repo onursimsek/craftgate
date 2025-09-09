@@ -19,7 +19,7 @@ class InstantTransferBank extends RequestDecorator
     {
         return $this->withMethod(HttpVerb::Get)
             ->withPath('instant-transfer-banks')
-            ->send();
+            ->psrSend();
     }
 
     protected function proxy(): Proxy

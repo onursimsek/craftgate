@@ -22,7 +22,7 @@ class Bnpl extends RequestDecorator
         return $this->withMethod(HttpVerb::Post)
             ->withPath('bnpl-payments', 'offers')
             ->withBody($data->toArray())
-            ->send();
+            ->psrSend();
     }
 
     public function create(CreateBnplPayment $data): ResponseInterface
@@ -30,21 +30,21 @@ class Bnpl extends RequestDecorator
         return $this->withMethod(HttpVerb::Post)
             ->withPath('bnpl-payments', 'init')
             ->withBody($data->toArray())
-            ->send();
+            ->psrSend();
     }
 
     public function approve(int $paymentId): ResponseInterface
     {
         return $this->withMethod(HttpVerb::Post)
             ->withPath('bnpl-payments', $paymentId, 'approve')
-            ->send();
+            ->psrSend();
     }
 
     public function verify(int $paymentId): ResponseInterface
     {
         return $this->withMethod(HttpVerb::Post)
             ->withPath('bnpl-payments', $paymentId, 'verify')
-            ->send();
+            ->psrSend();
     }
 
     protected function proxy(): Proxy

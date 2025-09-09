@@ -22,7 +22,7 @@ class Member extends RequestDecorator
         return $this->withMethod(HttpVerb::Post)
             ->withPath('members')
             ->withBody($data->toArray())
-            ->send();
+            ->psrSend();
     }
 
     public function update(int $id, MemberValueObject $data): ResponseInterface
@@ -30,14 +30,14 @@ class Member extends RequestDecorator
         return $this->withMethod(HttpVerb::Put)
             ->withPath('members', $id)
             ->withBody($data->toArray())
-            ->send();
+            ->psrSend();
     }
 
     public function fetch(int $id): ResponseInterface
     {
         return $this->withMethod(HttpVerb::Get)
             ->withPath('members', $id)
-            ->send();
+            ->psrSend();
     }
 
     public function search(SearchMember $data): ResponseInterface
@@ -45,7 +45,7 @@ class Member extends RequestDecorator
         return $this->withMethod(HttpVerb::Get)
             ->withPath('members')
             ->withQuery($data->toArray())
-            ->send();
+            ->psrSend();
     }
 
     protected function proxy(): Proxy

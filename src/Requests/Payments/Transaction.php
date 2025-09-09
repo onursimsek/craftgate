@@ -23,7 +23,7 @@ class Transaction extends RequestDecorator
                 'paymentTransactionIds' => $ids,
                 'isTransactional' => $isTransactional,
             ])
-            ->send();
+            ->psrSend();
     }
 
     public function disapprove(array $ids, bool $isTransactional): ResponseInterface
@@ -34,7 +34,7 @@ class Transaction extends RequestDecorator
                 'paymentTransactionIds' => $ids,
                 'isTransactional' => $isTransactional,
             ])
-            ->send();
+            ->psrSend();
     }
 
     public function update(string $paymentTransactionId, int $subMerchantMemberId, int $subMerchantMemberPrice): ResponseInterface
@@ -45,7 +45,7 @@ class Transaction extends RequestDecorator
                 'subMerchantMemberId' => $subMerchantMemberId,
                 'subMerchantMemberPrice' => $subMerchantMemberPrice,
             ])
-            ->send();
+            ->psrSend();
     }
 
     protected function proxy(): Proxy

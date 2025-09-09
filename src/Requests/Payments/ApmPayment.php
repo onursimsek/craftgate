@@ -22,7 +22,7 @@ class ApmPayment extends RequestDecorator
         return $this->withMethod(HttpVerb::Post)
             ->withPath('apm-payments')
             ->withBody($payment->toArray())
-            ->send();
+            ->psrSend();
     }
 
     public function init(InitializeApmPayment $payment): ResponseInterface
@@ -30,7 +30,7 @@ class ApmPayment extends RequestDecorator
         return $this->withMethod(HttpVerb::Post)
             ->withPath('apm-payments', 'init')
             ->withBody($payment->toArray())
-            ->send();
+            ->psrSend();
     }
 
     public function complete(int $paymentId, array $additionalParams): ResponseInterface
@@ -41,7 +41,7 @@ class ApmPayment extends RequestDecorator
                 'paymentId' => $paymentId,
                 'additionalParams' => $additionalParams,
             ])
-            ->send();
+            ->psrSend();
     }
 
     protected function proxy(): Proxy
