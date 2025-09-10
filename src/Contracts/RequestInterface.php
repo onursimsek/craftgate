@@ -25,5 +25,5 @@ interface RequestInterface
 
     public function withBody(array $body): self;
 
-    public function send(): ResponseInterface;
+    public function psrSend(): ResponseInterface;
 }

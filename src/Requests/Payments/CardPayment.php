@@ -23,12 +23,12 @@ final class CardPayment extends RequestDecorator
         return $this->withMethod(HttpVerb::Post)
             ->withPath('card-payments')
             ->withBody($payment->toArray())
-            ->send();
+            ->psrSend();
     }
 
     public function fetch(int $id): ResponseInterface
     {
-        return $this->withPath('card-payments', $id)->send();
+        return $this->withPath('card-payments', $id)->psrSend();
     }
 
     public function postAuth(int $id, array $params): ResponseInterface
@@ -36,7 +36,7 @@ final class CardPayment extends RequestDecorator
         return $this->withMethod(HttpVerb::Post)
             ->withPath('card-payments', $id, 'post-auth')
             ->withBody($params)
-            ->send();
+            ->psrSend();
     }
 
     public function initThreeDSecure(array $param): ResponseInterface
@@ -44,7 +44,7 @@ final class CardPayment extends RequestDecorator
         return $this->withMethod(HttpVerb::Post)
             ->withPath('card-payments', '3ds-init')
             ->withBody($param)
-            ->send();
+            ->psrSend();
     }
 
     public function completeThreeDSecure(array $param): ResponseInterface
@@ -52,7 +52,7 @@ final class CardPayment extends RequestDecorator
         return $this->withMethod(HttpVerb::Post)
             ->withPath('card-payments', '3ds-complete')
             ->withBody($param)
-            ->send();
+            ->psrSend();
     }
 
     protected function proxy(): Proxy

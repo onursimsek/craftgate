@@ -21,14 +21,14 @@ class RefundTransaction extends RequestDecorator
         return $this->withMethod(HttpVerb::Post)
             ->withPath('refund-transactions')
             ->withBody($transaction->toArray())
-            ->send();
+            ->psrSend();
     }
 
     public function fetch(int $transactionId): ResponseInterface
     {
         return $this->withMethod(HttpVerb::Get)
             ->withPath('refund-transactions', $transactionId)
-            ->send();
+            ->psrSend();
     }
 
     protected function proxy(): Proxy

@@ -82,7 +82,7 @@ class BaseRequest implements RequestInterface
         return $this;
     }
 
-    public function send(): ResponseInterface
+    public function psrSend(): ResponseInterface
     {
         return $this->client->sendRequest(
             $this->withHeader(Header::RandomKey->value, $guid = Util::guid())

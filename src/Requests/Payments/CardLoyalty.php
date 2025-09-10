@@ -21,7 +21,7 @@ class CardLoyalty extends RequestDecorator
         return $this->withMethod(HttpVerb::Post)
             ->withPath('card-loyalties', 'retrieve')
             ->withBody($card->toArray())
-            ->send();
+            ->psrSend();
     }
 
     protected function proxy(): Proxy

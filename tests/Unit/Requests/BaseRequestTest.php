@@ -69,7 +69,7 @@ class BaseRequestTest extends TestCase
         $this->addResponse(200, 'Hello, World');
 
         $request = new BaseRequest($this->options(), new Client(['handler' => HandlerStack::create($mock)]));
-        $response = $request->send();
+        $response = $request->psrSend();
 
         $this->assertTrue($request->psrRequest()->hasHeader(Header::RandomKey->value));
         $this->assertTrue($request->psrRequest()->hasHeader(Header::Signature->value));

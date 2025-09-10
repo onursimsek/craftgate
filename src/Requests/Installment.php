@@ -18,12 +18,12 @@ final class Installment extends RequestDecorator
     {
         return $this->withPath('installments')
             ->withQuery(['price' => $price] + $params)
-            ->send();
+            ->psrSend();
     }
 
     public function bin(string $binNumber): ResponseInterface
     {
-        return $this->withPath('bins', $binNumber)->send();
+        return $this->withPath('bins', $binNumber)->psrSend();
     }
 
     protected function proxy(): InstallmentProxy

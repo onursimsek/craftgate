@@ -23,21 +23,21 @@ final class CheckoutPayment extends RequestDecorator
         return $this->withMethod(HttpVerb::Post)
             ->withPath('checkout-payments', 'init')
             ->withBody($param->toArray())
-            ->send();
+            ->psrSend();
     }
 
     public function fetch(string $token): ResponseInterface
     {
         return $this->withMethod(HttpVerb::Get)
             ->withPath('checkout-payments', $token)
-            ->send();
+            ->psrSend();
     }
 
     public function expire(string $token): ResponseInterface
     {
         return $this->withMethod(HttpVerb::Delete)
             ->withPath('checkout-payments', $token)
-            ->send();
+            ->psrSend();
     }
 
     protected function proxy(): Proxy

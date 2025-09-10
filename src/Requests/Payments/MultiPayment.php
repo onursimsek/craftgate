@@ -19,7 +19,7 @@ class MultiPayment extends RequestDecorator
     {
         return $this->withMethod(HttpVerb::Get)
             ->withPath('multi-payments', $token)
-            ->send();
+            ->psrSend();
     }
 
     protected function proxy(): Proxy

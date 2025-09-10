@@ -21,7 +21,7 @@ class GarantiPay extends RequestDecorator
         return $this->withMethod(HttpVerb::Post)
             ->withPath('garanti-pay-payments')
             ->withBody($payment->toArray())
-            ->send();
+            ->psrSend();
     }
 
     protected function proxy(): Proxy
